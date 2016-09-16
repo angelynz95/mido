@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Mido</string>
+    <string name="appName">Mido</string>
+    <string name="marketPlaceButton">Marketplace</string>
+    <string name="socialMediaButton">Social Media</string>
 </resources>
