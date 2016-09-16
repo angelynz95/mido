@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\RedisController;
 use Facebook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,7 @@ use Log;
 class FacebookController extends Controller {
 	private $dataHelper;
 	private $fb;
+	private $redis;
 	public function __construct() {
 		$dataHelper = new PersistentDataHandler();
 		$config = [
@@ -19,6 +21,7 @@ class FacebookController extends Controller {
 			'persistent_data_handler' => $dataHelper,
 		];
 		$this->fb = new Facebook\Facebook($config);
+		$this->redis = new RedisController();
 	}
 
 	public function login(Request $req) {
@@ -37,47 +40,72 @@ class FacebookController extends Controller {
 			$accessToken = $helper->getAccessToken();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 			// When Graph returns an error
-		 	echo 'Graph returned an error: ' . $e->getMessage();
-		  	exit;
+			return response()->json([
+				'error' => [
+					'status_code' => '500', 
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Graph returned an error: ' . $e->getMessage());
 		} catch(Facebook\Exceptions\FacebookSDKException $e) {
 			// When validation fails or other local issues
-			echo 'Facebook SDK returned an error: ' . $e->getMessage();
-			exit;
+			return response()->json([
+				'error'=> [
+					'status_code' => '500',
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Facebook SDK returned an error: ' . $e->getMessage());
 		}
 
 		if (isset($accessToken)) {
-			// Logged in!
-			// $_SESSION['facebook_access_token'] = (string) $accessToken;
-			echo (string) $accessToken;
-			Log::info($accessToken);
-
-			// OAuth 2.0 client handler
-			$oAuth2Client = $this->fb->getOAuth2Client();
-
 			// Exchanges a short-lived for a long-lived one
+			Log::info('Access token: ' . (string)$accessToken);
+
+			$oAuth2Client = $this->fb->getOAuth2Client();
 			$longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
 			echo (string) $longLivedAccessToken;
-			Log::info($longLivedAccessToken);
+			Log::info('Long life access token: ' . (string)$longLivedAccessToken);
 
-			// Now you can redirect to another page and use the
-			// access token from $_SESSION['facebook_access_token']
+			return response()->json([
+				'status_code' => '200',
+				'status_message' => 'You have login!',
+			]);
 		}
+
+		return response()->json([
+			'error'=> [
+				'status_code' => '500',
+				'status_message' => 'Sorry, you can\'t login right now. Try again later.'
+			],
+		]);
 	}
 
 	public function test() {
 		$this->fb->setDefaultAccessToken(env('FB_LONG_TOKEN'));
 
 		try {
-			$response = $this->fb->get('/me');
+			$response = $this->fb->get('/me?fields=id,name,email');
 			$userNode = $response->getGraphUser();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 			// When Graph returns an error
-			echo 'Graph returned an error: ' . $e->getMessage();
+			return response()->json([
+				'error' => [
+					'status_code' => '500', 
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Graph returned an error: ' . $e->getMessage());
 			exit;
 		} catch(Facebook\Exceptions\FacebookSDKException $e) {
 			// When validation fails or other local issues
-			echo 'Facebook SDK returned an error: ' . $e->getMessage();
-			exit;
+			return response()->json([
+				'error'=> [
+					'status_code' => '500',
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Facebook SDK returned an error: ' . $e->getMessage());
 		}
 
 		$plainOldArray = $response->getDecodedBody();
@@ -93,12 +121,22 @@ class FacebookController extends Controller {
 			$userNode = $response->getGraphEdge();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 			// When Graph returns an error
-			echo 'Graph returned an error: ' . $e->getMessage();
-			exit;
+			return response()->json([
+				'error' => [
+					'status_code' => '500', 
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Graph returned an error: ' . $e->getMessage());
 		} catch(Facebook\Exceptions\FacebookSDKException $e) {
 			// When validation fails or other local issues
-			echo 'Facebook SDK returned an error: ' . $e->getMessage();
-			exit;
+			return response()->json([
+				'error'=> [
+					'status_code' => '500',
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Facebook SDK returned an error: ' . $e->getMessage());
 		}
 
 		$plainOldArray = $response->getDecodedBody();
@@ -112,14 +150,28 @@ class FacebookController extends Controller {
 			$pageNode = $response->getGraphNode();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 			// When Graph returns an error
-			echo 'Graph returned an error: ' . $e->getMessage();
-			exit;
+			return response()->json([
+				'error' => [
+					'status_code' => '500', 
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Graph returned an error: ' . $e->getMessage());
 		} catch(Facebook\Exceptions\FacebookSDKException $e) {
 			// When validation fails or other local issues
-			echo 'Facebook SDK returned an error: ' . $e->getMessage();
-			exit;
+			return response()->json([
+				'error'=> [
+					'status_code' => '500',
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Facebook SDK returned an error: ' . $e->getMessage());
 		}
 		$plainOldArray = $response->getDecodedBody();
 		dd($plainOldArray);
+	}
+
+	public function redis() {
+		$this->redis->save('test', 'testvalue');
 	}
 }
