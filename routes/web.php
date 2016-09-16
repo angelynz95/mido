@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/fb', 'FacebookController@login');
+Route::get('/fb/test', 'FacebookController@callback');
