@@ -17,4 +17,5 @@
     <string name="packageName">com.cia.mido</string>
     <string name="postButton">Post</string>
     <string name="socialManagerButton">Social Manager</string>
+    <string name="searchButton">Cari</string>
 </resources>
