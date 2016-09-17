@@ -28,4 +28,7 @@ Route::get('/fb/{userId}/page/{pageId}', 'FacebookController@getPosts');
 // Route::get('/fb/{userId}/page/{pageId}/insight', 'FacebookController@getInsight');
 
 // BUKALAPAK
-Route::get('/bl/getPages/{keyword}', 'BukalapakController@getPages');
+Route::get('/bl/get/{keyword}', 'BukalapakController@getPages');
+
+// SRIBULANCER
+Route::post('/sl/get', 'SribulancerController@getPages');

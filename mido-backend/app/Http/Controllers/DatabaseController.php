@@ -7,11 +7,14 @@ use Illuminate\Support\Facades\DB;
 class DatabaseController extends Controller {
 	public function storeUserData(array $data) {
 		// Check previous occurences
-		$shadowUserId = DB::table('user')
+		$result = DB::table('user')
 			->where($data)
-			->first()->id;
+			->first();
 
-		if (!count($shadowUserId)) {
+		$shadowUserId;
+		if (count($result)) {
+			$shadowUserId = $result->id;
+		} else {
 			DB::table('user')->insert($data);
 			$shadowUserId = DB::getPdo()->lastInsertId();
 		}
@@ -20,11 +23,14 @@ class DatabaseController extends Controller {
 
 	public function storePagesData(array $data) {
 		// Check previous occurences
-		$shadowPageId = DB::table('user_page')
+		$result = DB::table('user_page')
 			->where($data)
-			->first()->id;
+			->first();
 
-		if (!count($shadowPageId)) {
+		$shadowPageId;
+		if (count($shadowPageId)) {
+			$shadowPageId = $result->id;
+		} else {
 			DB::table('user_page')->insert($data);
 			$shadowPageId = DB::getPdo()->lastInsertId;
 		}
@@ -35,9 +41,13 @@ class DatabaseController extends Controller {
 	public function getPageId(int $shadowPageId) {
 		$pageId = DB::table('user_page')
 			->where('id', $shadowPageId)
-			->first()
-			->real_id;
+			->first();
 
+		if (count($pageId)) {
+			$pageId = $pageId->real_id;
+		} else {
+			$pageId = 0;
+		}
 		return $pageId;
 	}
 }
