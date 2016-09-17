@@ -212,7 +212,7 @@ class FacebookController extends Controller {
 	}
 
 	public function createPost(int $userId, int $pageId, Request $req) {
-		$key = $this->redis->getPageAccessTokenKey($userId, $this->const->FACEBOOK_API);
+		$key = $this->redis->getPageAccessTokenKey($userId, $pageId);
 		$accessToken = $this->redis->get($key);
 		$this->fb->setDefaultAccessToken($accessToken);
 
@@ -249,7 +249,7 @@ class FacebookController extends Controller {
 	}
 
 	public function getPosts(int $userId, int $pageId) {
-		$key = $this->redis->getPageAccessTokenKey($userId, $this->const->FACEBOOK_API);
+		$key = $this->redis->getPageAccessTokenKey($userId, $pageId);
 		$accessToken = $this->redis->get($key);
 		$this->fb->setDefaultAccessToken($accessToken);
 
@@ -289,7 +289,7 @@ class FacebookController extends Controller {
 	}
 
 	public function getInsight(int $userId, int $pageId) {
-		$key = $this->redis->getAccessTokenKey($userId, $this->const->FACEBOOK_API);
+		$key = $this->redis->getAccessTokenKey($userId, $pageId);
 		$accessToken = $this->redis->get($key);
 		$this->fb->setDefaultAccessToken($accessToken);
 

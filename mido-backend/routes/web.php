@@ -27,6 +27,10 @@ Route::post('/fb/{userId}/page/{pageId}/post', 'FacebookController@createPost');
 Route::get('/fb/{userId}/page/{pageId}', 'FacebookController@getPosts');
 // Route::get('/fb/{userId}/page/{pageId}/insight', 'FacebookController@getInsight');
 
+// INSTAGRAM
+Route::post('/ig/login', 'InstagramController@storeUserData');
+Route::get('/ig/{userId}/post/get', 'InstagramController@getPosts');
+Route::post('/ig/{userId}/post/image', 'InstagramController@uploadPhoto');
 
 // BUKALAPAK
 Route::get('/bl/getPageInfo/{keyword}', 'BukalapakController@getPages');

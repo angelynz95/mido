@@ -1,14 +1,20 @@
 <resources>
     <string name="appName">Mido</string>
     <string name="backEndUrl">https://1e3797a9.ngrok.io</string>
+    <string name="employeeSearchButton">Employee Search</string>
     <string name="facebookAppId">197603340658783</string>
     <string name="facebookButton">Facebook</string>
-    <string name="facebookCreatePost">/fb/{userId}/page/{pageId}/post</string>
     <string name="facebookLoginUrl">/fb/login</string>
+    <string name="facebookPageCreatePostButton">Create Post</string>
+    <string name="facebookPageCreatePostUrl">/fb/{userId}/page/{pageId}/post</string>
+    <string name="facebookPagePostHint">Message</string>
     <string name="facebookPagesUrl">/fb/{userId}/page/get</string>
+    <string name="facebookPostsUrl">/fb/{userId}/page/{pageId}</string>
     <string name="instagramButton">Instagram</string>
     <string name="lineButton">Line</string>
-    <string name="marketPlaceButton">Marketplace</string>
+    <string name="marketInsightButton">Market Insight</string>
+    <string name="newsButton">News</string>
     <string name="packageName">com.cia.mido</string>
-    <string name="socialMediaButton">Social Media</string>
+    <string name="postButton">Post</string>
+    <string name="socialManagerButton">Social Manager</string>
 </resources>

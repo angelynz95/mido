@@ -6,6 +6,14 @@ use Illuminate\Support\Facades\Redis;
 use Log;
 
 class RedisController extends Controller {
+	// Instagram only
+	public function getUsernameKey(int $usernameId) {
+		return "ig_username:" . $usernameId;
+	}
+	public function getUserPasswordKey(int $usernameId) {
+		return "ig_password:" . $usernameId;
+	}
+
 	public function getAccessTokenKey(int $userId) {
 		return "access_token:" . $userId;
 	}

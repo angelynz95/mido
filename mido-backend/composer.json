@@ -16,7 +16,8 @@
         "facebook/graph-sdk": "^5.3",
         "predis/predis": "^1.1",
         "simple-html-dom/simple-html-dom": "*",
-        "yangqi/htmldom": "dev-master"
+        "yangqi/htmldom": "dev-master",
+        "mgp25/instagram-php": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
