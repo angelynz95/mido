@@ -211,10 +211,13 @@ class FacebookController extends Controller {
 		return $isFound;
 	}
 
-	public function createPost(Request $req) {
-		$this->fb->setDefaultAccessToken(env('FB_PAGE_ACCESS_TOKEN'));
+	public function createPost(int $userId, int $pageId, Request $req) {
+		$key = $this->redis->getPageAccessTokenKey($userId, $this->const->FACEBOOK_API);
+		$accessToken = $this->redis->get($key);
+		$this->fb->setDefaultAccessToken($accessToken);
+
 		try {
-			$response = $this->fb->post('/' . env('FB_PAGE_ID') . '/feed?message=This is a test');
+			$response = $this->fb->post('/' . $this->db->getPageId($pageId) . '/feed?message=' . $req->get('message'));
 			$pageNode = $response->getGraphNode();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 			// When Graph returns an error
@@ -235,7 +238,15 @@ class FacebookController extends Controller {
 			]);
 			Log::info('Facebook SDK returned an error: ' . $e->getMessage());
 		}
-		$plainOldArray = $response->getDecodedBody();
-		dd($plainOldArray);
+		$graphObject = $response->getDecodedBody();
+		if (isset($graphObject['error'])) {
+			return $graphObject;
+		}
+		
+		return response()->json([
+			'pages' => $responsePages,
+			'status_code' => '200',
+			'status_message' => 'OK',
+		]);
 	}
 }

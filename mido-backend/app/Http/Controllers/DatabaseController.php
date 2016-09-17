@@ -31,4 +31,13 @@ class DatabaseController extends Controller {
 
 		return $shadowPageId;
 	}
+
+	public function getPageId(int $shadowPageId) {
+		$pageId = DB::table('user_page')
+			->where('id', $shadowPageId)
+			->first()
+			->real_id;
+
+		return $pageId;
+	}
 }
