@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cia.mido">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,10 +17,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SocialMediaActivity"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebookAppId"/>
-    </application>
+        <activity android:name=".SocialMediaActivity" />
+        <activity android:name=".FacebookLoginActivity" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/appName"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebookAppId" />
+
+        <activity android:name=".FacebookPagesActivity"></activity>
+    </application>
 
 </manifest>
