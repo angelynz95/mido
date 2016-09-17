@@ -9,5 +9,6 @@
     <string name="instagramButton">Instagram</string>
     <string name="lineButton">Line</string>
     <string name="marketPlaceButton">Marketplace</string>
+    <string name="packageName">com.cia.mido</string>
     <string name="socialMediaButton">Social Media</string>
 </resources>
