@@ -28,6 +28,8 @@ class NewsController extends Controller {
 			array_push($newsList, $news);
 		}
 
-		return response()->json($newsList);
+		return response()->json([
+			'news' => $newsList
+		]);
 	}
 }

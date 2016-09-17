@@ -10,6 +10,7 @@
     <string name="facebookPagePostHint">Message</string>
     <string name="facebookPagesUrl">/fb/{userId}/page/get</string>
     <string name="facebookPostsUrl">/fb/{userId}/page/{pageId}</string>
+    <string name="newsUrl">/news/get</string>
     <string name="instagramButton">Instagram</string>
     <string name="lineButton">Line</string>
     <string name="marketInsightButton">Market Insight</string>
