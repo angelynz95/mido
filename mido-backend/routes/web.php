@@ -17,10 +17,15 @@ Route::get('/', function () {
 
 Route::get('/fb', 'FacebookController@login');
 Route::get('/fb/callback', 'FacebookController@callback');
-Route::get('/fb/test', 'FacebookController@test');
 
-Route::get('/fb/get', 'FacebookController@getPages');
-Route::get('/redis', 'FacebookController@redis');
+// FACEBOOK
+// Login
+Route::post('/fb/login', 'FacebookController@storeUserData');
+// Pages
+Route::get('/fb/{userId}/page/get', 'FacebookController@getPages');
+Route::post('/fb/{userId}/page/{pageId}/post', 'FacebookController@createPost');
+Route::get('/fb/{userId}/page/{pageId}', 'FacebookController@getPosts');
+// Route::get('/fb/{userId}/page/{pageId}/insight', 'FacebookController@getInsight');
 
 Route::get('/bl/getPageInfo/{keyword}', 'BukalapakController@getPages');
 Route::get('/bl/postProduct/{productid}', 'BukalapakController@postProduct');

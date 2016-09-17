@@ -3,7 +3,8 @@ package com.cia.mido;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -44,6 +45,7 @@ public class FacebookPagesActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent socialMediaIntent = new Intent(this, SocialMediaActivity.class);
         startActivity(socialMediaIntent);
+        finish();
     }
 
     private void getAccessToken() {
@@ -51,6 +53,11 @@ public class FacebookPagesActivity extends AppCompatActivity {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
                 accessToken = currentAccessToken;
+                if (accessToken == null) {
+                    Intent facebookLoginIntent = new Intent(FacebookPagesActivity.this, FacebookLoginActivity.class);
+                    startActivity(facebookLoginIntent);
+                    finish();
+                }
             }
         };
         accessToken = AccessToken.getCurrentAccessToken();
@@ -58,5 +65,8 @@ public class FacebookPagesActivity extends AppCompatActivity {
 
     private void showFacebookPages() {
         String[] facebookPages = {"Mido", "CodeForGirl", "Anmategra"};
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.facebook_page_listview, facebookPages);
+        ListView facebookPageList = (ListView) findViewById(R.id.facebookPageList);
+        facebookPageList.setAdapter(adapter);
     }
 }
