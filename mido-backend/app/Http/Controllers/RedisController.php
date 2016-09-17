@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Support\Facades\Redis;
 use Log;
 
 class RedisController extends Controller {
+	public function getAccessTokenKey(int $userId) {
+		return "access_token:" . $userId;
+	}
+
+	public function getPageAccessTokenKey(int $userId, int $pageId) {
+		return "page_access_token:" . $userId . ":" . $pageId;
+	}
+
 	public function get(string $key) {
 		$value = Redis::get($key);
 		Log::info('Get redis key: ' . $key . ' value: ' . $value);
