@@ -1,7 +1,11 @@
 <resources>
     <string name="appName">Mido</string>
+    <string name="backEndUrl">https://1e3797a9.ngrok.io</string>
     <string name="facebookAppId">197603340658783</string>
     <string name="facebookButton">Facebook</string>
+    <string name="facebookCreatePost">/fb/{userId}/page/{pageId}/post</string>
+    <string name="facebookLoginUrl">/fb/login</string>
+    <string name="facebookPagesUrl">/fb/{userId}/page/get</string>
     <string name="instagramButton">Instagram</string>
     <string name="lineButton">Line</string>
     <string name="marketPlaceButton">Marketplace</string>
