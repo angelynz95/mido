@@ -4,11 +4,19 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Youpie/simple-html-dom"
+        }
+    ],
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "facebook/graph-sdk": "^5.3",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "simple-html-dom/simple-html-dom": "*",
+        "yangqi/htmldom": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
