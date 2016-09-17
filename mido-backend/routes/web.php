@@ -22,4 +22,8 @@ Route::get('/fb/test', 'FacebookController@test');
 Route::get('/fb/get', 'FacebookController@getPages');
 Route::get('/redis', 'FacebookController@redis');
 
-Route::get('/bl/getPages/{keyword}', 'BukalapakController@getPages');
+Route::get('/bl/getPageInfo/{keyword}', 'BukalapakController@getPages');
+Route::get('/bl/postProduct/{productid}', 'BukalapakController@postProduct');
+
+Route::get('/tokped/getPageInfo/{keyword}', 'TokopediaController@getPages');
+Route::get('/tokped/postProduct/{productid}', 'TokopediaController@postProduct');
