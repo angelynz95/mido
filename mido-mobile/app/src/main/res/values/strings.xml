@@ -1,5 +1,9 @@
 <resources>
     <string name="appName">Mido</string>
+    <string name="facebookAppId">1765055073766152</string>
+    <string name="facebookButton">Facebook</string>
+    <string name="instagramButton">Instagram</string>
+    <string name="lineButton">Line</string>
     <string name="marketPlaceButton">Marketplace</string>
     <string name="socialMediaButton">Social Media</string>
 </resources>
