@@ -1,8 +1,10 @@
 package com.cia.mido;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -10,6 +12,13 @@ import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FacebookPagesActivity extends AppCompatActivity {
     private AccessToken accessToken;
@@ -64,8 +73,35 @@ public class FacebookPagesActivity extends AppCompatActivity {
     }
 
     private void showFacebookPages() {
-        String[] facebookPages = {"Mido", "CodeForGirl", "Anmategra"};
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.facebook_page_listview, facebookPages);
+        SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.packageName), MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", null);
+        String url = (getResources().getString(R.string.backEndUrl) + getResources().getString(R.string.facebookPagesUrl)).replace("{userId}", userId);
+        Client client = new Client(url, null, "GET");
+        client.execute();
+
+        JSONObject response;
+        List<String> facebookPageNames = new ArrayList<>();
+        try {
+            do {
+                Thread.sleep(1000);
+                response = client.getResponse();
+            } while (response == null);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            JSONArray facebookPages = (JSONArray) response.get("pages");
+            for (int i = 0; i < facebookPages.length(); i++) {
+                JSONObject facebookPage = (JSONObject) facebookPages.get(i);
+                String facebookPageId = facebookPage.getString("id");
+                String facebookPageName = facebookPage.getString("name");
+                facebookPageNames.add(facebookPageName);
+                editor.putString(facebookPageId + "-" + facebookPageName, facebookPageId);
+            }
+            editor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.facebook_page_listview, facebookPageNames);
         ListView facebookPageList = (ListView) findViewById(R.id.facebookPageList);
         facebookPageList.setAdapter(adapter);
     }

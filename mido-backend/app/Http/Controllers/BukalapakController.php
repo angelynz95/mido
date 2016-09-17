@@ -11,7 +11,7 @@
         $this->Htmldom = new Htmldom();
 
         // Create DOM from URL or file
-        $html = $this->Htmldom->file_get_html('https://www.bukalapak.com/products?utf8=%E2%9C%93&source=navbar&from=omnisearch&search_source=omnisearch_organic&search%5Bkeywords%5D=' . $keyword);
+        $html = $this->Htmldom->file_get_html('https://www.bukalapak.com/products?utf8=%E2%9C%93&source=navbar&from=omnisearch&search_source=omnisearch_organic&search%5Bkeywords%5D=' . urlencode($keyword));
 
         $number_of_page = 0;
         foreach($html->find('span.last-page') as $element) {
@@ -23,13 +23,11 @@
         }
         
         $total_price = 0;
-        $mean = 0;
         $total_product = 0;
         $max = 0;
         $min = 100000000;
         $page_number = 0;
 
-        // Find all links 
         do {
           $page_number++;
           foreach($html->find('span.amount') as $element) {
@@ -42,18 +40,34 @@
               $min = str_replace(".", "", $element->innertext);
             }
           }
-          // Create DOM from URL or file
-        $html = $this->Htmldom->file_get_html('https://www.bukalapak.com/products?utf8=%E2%9C%93&source=navbar&from=omnisearch&page='.$page_number.'&search_source=omnisearch_organic&search%5Bkeywords%5D=' . $keyword);
+
+          $html = $this->Htmldom->file_get_html('https://www.bukalapak.com/products?utf8=%E2%9C%93&source=navbar&from=omnisearch&page='.$page_number.'&search_source=omnisearch_organic&search%5Bkeywords%5D=' . urlencode($keyword));
         } while ($page_number < $number_of_page);
         
+        $arrayData = array(
+          'banyak_produk' => $total_product, 
+          'total_harga' => $total_price, 
+          'harga_tertinggi' => $max, 
+          'harga_terendah' => $min, 
+          'harga_rata' => $total_price/$total_product
+          );
 
-
-        echo 'Banyak produk : '.$total_product;
-        echo '<br><br>Total harga : '.$total_price;
-        echo '<br><br>Harga tertinggi : '.$max;
-        echo '<br><br>Harga terendah : '.$min;
-        echo '<br><br>Rata-rata harga : '.($total_price/$total_product);
-
+        return json_encode($arrayData);
     }
+
+    // public function postProduct(int $product_id) {
+    //   $data = "{'id': ".$product_id." }";
+    //   $url = "https://api.bukalapak.com/v2/products/".$product_id."/push.json";
+    //   $headers = array('Content-Type: application/json');
+    //   $curl = curl_init();
+    //   curl_setopt($curl, CURLOPT_URL, $url);
+    //   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    //   curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
+    //   curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    //   curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    //   $response = curl_exec($curl);
+    //   curl_close($curl);
+    //   echo $response;
+    // }
   }
 ?>

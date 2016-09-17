@@ -72,7 +72,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
                         response = client.getResponse();
                     } while (response == null);
 
-                    SharedPreferences sharedPreferences = getSharedPreferences("com.cia.mido", MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.packageName), MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("userId", response.getString("user_id"));
                     editor.commit();
