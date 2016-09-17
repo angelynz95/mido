@@ -47,5 +47,5 @@ Route::get('/news/get', 'NewsController@getPages');
 Route::post('/sl/get', 'SribulancerController@getPages');
 
 // DEMAND
-Route::get('/insight/test/{keyword}', 'DemandInsightController@test');
+Route::get('/insight/getResep/{keyword}', 'DemandInsightController@getResep');
 Route::get('/insight/getInfoBahan/{keyword}', 'DemandInsightController@getInfoBahan');

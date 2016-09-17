@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.util.Log;
+import android.view.View;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -95,5 +96,23 @@ public class FacebookLoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void chooseSocialManager(View view) {
+        Intent socialMediaIntent = new Intent(this, SocialMediaActivity.class);
+        startActivity(socialMediaIntent);
+        finish();
+    }
+
+    public void chooseNews(View view) {
+
+    }
+
+    public void chooseMarketInsight(View view) {
+
+    }
+
+    public void chooseEmployeeSearch(View view) {
+
     }
 }
