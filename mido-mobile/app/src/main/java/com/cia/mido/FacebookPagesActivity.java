@@ -5,8 +5,11 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -16,6 +19,7 @@ import com.facebook.FacebookSdk;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ public class FacebookPagesActivity extends AppCompatActivity {
     private AccessToken accessToken;
     private AccessTokenTracker accessTokenTracker;
     private CallbackManager callbackManager;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,7 @@ public class FacebookPagesActivity extends AppCompatActivity {
     }
 
     private void showFacebookPages() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getResources().getString(R.string.packageName), MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.packageName), MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
         String url = (getResources().getString(R.string.backEndUrl) + getResources().getString(R.string.facebookPagesUrl)).replace("{userId}", userId);
         Client client = new Client(url, null, "GET");
@@ -94,7 +99,7 @@ public class FacebookPagesActivity extends AppCompatActivity {
                 String facebookPageId = facebookPage.getString("id");
                 String facebookPageName = facebookPage.getString("name");
                 facebookPageNames.add(facebookPageName);
-                editor.putString(facebookPageId + "-" + facebookPageName, facebookPageId);
+                editor.putString(facebookPageName, facebookPageId);
             }
             editor.commit();
         } catch (Exception e) {
@@ -104,5 +109,44 @@ public class FacebookPagesActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.facebook_page_listview, facebookPageNames);
         ListView facebookPageList = (ListView) findViewById(R.id.facebookPageList);
         facebookPageList.setAdapter(adapter);
+
+        facebookPageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String facebookPageName = (String) parent.getItemAtPosition(position);
+                showFacebookPagePostForm(facebookPageName);
+            }
+        });
+    }
+
+    public void showFacebookPagePostForm(String facebookPageName) {
+        String facebookPageId = sharedPreferences.getString(facebookPageName, null);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("facebookPageId", facebookPageId);
+        editor.putString("facebookPageName", facebookPageName);
+        editor.commit();
+
+        Intent facebookPostsIntent = new Intent(this, FacebookPostsActivity.class);
+        startActivity(facebookPostsIntent);
+        finish();
+    }
+
+    public void chooseSocialManager(View view) {
+        Intent socialMediaIntent = new Intent(this, SocialMediaActivity.class);
+        startActivity(socialMediaIntent);
+        finish();
+    }
+
+    public void chooseNews(View view) {
+
+    }
+
+    public void chooseMarketInsight(View view) {
+
+    }
+
+    public void chooseEmployeeSearch(View view) {
+
     }
 }
