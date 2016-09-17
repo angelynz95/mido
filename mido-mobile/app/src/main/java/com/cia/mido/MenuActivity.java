@@ -13,8 +13,14 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     public void chooseSocialMedia(View view) {
         Intent socialMediaIntent = new Intent(this, SocialMediaActivity.class);
         startActivity(socialMediaIntent);
+        finish();
     }
 }

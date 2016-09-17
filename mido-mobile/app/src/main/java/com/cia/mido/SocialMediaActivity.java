@@ -11,35 +11,25 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 public class SocialMediaActivity extends AppCompatActivity {
-    private AccessToken accessToken;
-    private AccessTokenTracker accessTokenTracker;
-    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.activity_social_media);
-
-        getAccessToken();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        accessTokenTracker.stopTracking();
+    public void onBackPressed() {
+        Intent menuIntent = new Intent(this, MenuActivity.class);
+        startActivity(menuIntent);
+        finish();
     }
 
     public void accessFacebook(View view) {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
         Intent facebookIntent;
         if (accessToken != null) {
             facebookIntent = new Intent(this, FacebookPagesActivity.class);
@@ -47,15 +37,6 @@ public class SocialMediaActivity extends AppCompatActivity {
             facebookIntent = new Intent(this, FacebookLoginActivity.class);
         }
         startActivity(facebookIntent);
-    }
-
-    private void getAccessToken() {
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                accessToken = currentAccessToken;
-            }
-        };
-        accessToken = AccessToken.getCurrentAccessToken();
+        finish();
     }
 }
