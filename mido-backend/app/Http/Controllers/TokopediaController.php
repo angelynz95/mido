@@ -43,7 +43,6 @@
 
         $arrayData = array(
             'banyak_produk' => $number_of_product, 
-            'total_harga' => $total_price, 
             'harga_tertinggi' => $max, 
             'harga_terendah' => $min, 
             'harga_rata' => $total_price/$number_of_product
