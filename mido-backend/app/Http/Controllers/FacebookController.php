@@ -218,7 +218,6 @@ class FacebookController extends Controller {
 
 		try {
 			$response = $this->fb->post('/' . $this->db->getPageId($pageId) . '/feed?message=' . $req->get('message'));
-			$pageNode = $response->getGraphNode();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 			// When Graph returns an error
 			return response()->json([
@@ -244,9 +243,104 @@ class FacebookController extends Controller {
 		}
 		
 		return response()->json([
-			'pages' => $responsePages,
 			'status_code' => '200',
 			'status_message' => 'OK',
 		]);
 	}
+
+	public function getPosts(int $userId, int $pageId) {
+		$key = $this->redis->getPageAccessTokenKey($userId, $this->const->FACEBOOK_API);
+		$accessToken = $this->redis->get($key);
+		$this->fb->setDefaultAccessToken($accessToken);
+
+		try {
+			$response = $this->fb->get('/' . $this->db->getPageId($pageId) . '/posts');
+		} catch(Facebook\Exceptions\FacebookResponseException $e) {
+			// When Graph returns an error
+			return response()->json([
+				'error' => [
+					'status_code' => '500',
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Graph returned an error: ' . $e->getMessage());
+		} catch(Facebook\Exceptions\FacebookSDKException $e) {
+			// When validation fails or other local issues
+			return response()->json([
+				'error'=> [
+					'status_code' => '500',
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Facebook SDK returned an error: ' . $e->getMessage());
+		}
+
+		$graphObject = $response->getDecodedBody();
+		
+		if (isset($graphObject['error'])) {
+			return $graphObject;
+		}
+		
+		return response()->json([
+			'status_code' => '200',
+			'status_message' => 'OK',
+			'posts' => $graphObject['data'],
+		]);
+	}
+
+	public function getInsight(int $userId, int $pageId) {
+		$key = $this->redis->getAccessTokenKey($userId, $this->const->FACEBOOK_API);
+		$accessToken = $this->redis->get($key);
+		$this->fb->setDefaultAccessToken($accessToken);
+
+		try {
+			// dd('/' . $this->db->getPageId($pageId) . '/insights/page_fans?period=lifetime');
+			$response = $this->fb->post('/' . $this->db->getPageId($pageId) . '/insights/page_views_total?period=week');
+			$graphObject = $response->getGraphObject();
+			dd($graphObject);
+		} catch(Facebook\Exceptions\FacebookResponseException $e) {
+			// When Graph returns an error
+			return response()->json([
+				'error' => [
+					'status_code' => '500',
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Graph returned an error: ' . $e->getMessage());
+		} catch(Facebook\Exceptions\FacebookSDKException $e) {
+			// When validation fails or other local issues
+			return response()->json([
+				'error'=> [
+					'status_code' => '500',
+					'status_message' => $e->getMessage()
+				],
+			]);
+			Log::info('Facebook SDK returned an error: ' . $e->getMessage());
+		}
+		$graphObject = $response->getDecodedBody();
+		if (isset($graphObject['error'])) {
+			return $graphObject;
+		}
+		
+		return response()->json([
+			'status_code' => '200',
+			'status_message' => 'OK',
+		]);
+	}
+
+	public function uploadPicture(Request $request)
+    {
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $image = $request->file('image');
+        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/images');
+        $image->move($destinationPath, $input['imagename']);
+
+        $this->postImage->add($input);
+
+        return back()->with('success','Image Upload successful');
+    }
 }

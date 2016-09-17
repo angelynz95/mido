@@ -18,13 +18,14 @@ Route::get('/', function () {
 Route::get('/fb', 'FacebookController@login');
 Route::get('/fb/callback', 'FacebookController@callback');
 
-
 // FACEBOOK
 // Login
 Route::post('/fb/login', 'FacebookController@storeUserData');
 // Pages
 Route::get('/fb/{userId}/page/get', 'FacebookController@getPages');
 Route::post('/fb/{userId}/page/{pageId}/post', 'FacebookController@createPost');
+Route::get('/fb/{userId}/page/{pageId}', 'FacebookController@getPosts');
+// Route::get('/fb/{userId}/page/{pageId}/insight', 'FacebookController@getInsight');
 
 // BUKALAPAK
 Route::get('/bl/getPages/{keyword}', 'BukalapakController@getPages');
