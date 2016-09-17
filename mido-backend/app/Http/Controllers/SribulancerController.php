@@ -1,8 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Log;
 use Yangqi\Htmldom\Htmldom;
 
 class SribulancerController extends Controller {
@@ -36,6 +36,6 @@ class SribulancerController extends Controller {
 			array_push($freelancerInfos, $freelancerInfo);
 		}
 		
-		return $freelancerInfos;
+		return response()->json($freelancerInfos);
 	}
 }

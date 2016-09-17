@@ -18,6 +18,7 @@ class DatabaseController extends Controller {
 			DB::table('user')->insert($data);
 			$shadowUserId = DB::getPdo()->lastInsertId();
 		}
+		
 		return $shadowUserId;
 	}
 
@@ -28,11 +29,11 @@ class DatabaseController extends Controller {
 			->first();
 
 		$shadowPageId;
-		if (count($shadowPageId)) {
+		if (count($result)) {
 			$shadowPageId = $result->id;
 		} else {
 			DB::table('user_page')->insert($data);
-			$shadowPageId = DB::getPdo()->lastInsertId;
+			$shadowPageId = DB::getPdo()->lastInsertId();
 		}
 
 		return $shadowPageId;

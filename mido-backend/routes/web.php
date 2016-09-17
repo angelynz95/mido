@@ -30,5 +30,8 @@ Route::get('/fb/{userId}/page/{pageId}', 'FacebookController@getPosts');
 // BUKALAPAK
 Route::get('/bl/get/{keyword}', 'BukalapakController@getPages');
 
+// NEWS
+Route::get('/news/get', 'NewsController@getPages');
+
 // SRIBULANCER
 Route::post('/sl/get', 'SribulancerController@getPages');
