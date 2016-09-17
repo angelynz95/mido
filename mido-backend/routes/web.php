@@ -32,3 +32,6 @@ Route::get('/bl/postProduct/{productid}', 'BukalapakController@postProduct');
 
 Route::get('/tokped/getPageInfo/{keyword}', 'TokopediaController@getPages');
 Route::get('/tokped/postProduct/{productid}', 'TokopediaController@postProduct');
+
+Route::get('/insight/test/{keyword}', 'DemandInsightController@test');
+Route::get('/insight/getInfoBahan/{keyword}', 'DemandInsightController@getInfoBahan');
