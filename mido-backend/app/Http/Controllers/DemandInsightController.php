@@ -64,9 +64,57 @@
 	        		$bahan[$i] = substr($bahan[$i], 0, strpos($bahan[$i], '('));	
 	        	}
 	        }
-	        
 
+	        //$bahan isinya bahan yang mau dicari harganya
 	        echo print_r($bahan);
+
+	        $arrayData = array(); //ini buat nampung semua hasil
+
+	        //cari di kemendag dulu
+	        $harga_kemendag = $this->Htmldom->file_get_html('http://ews.kemendag.go.id/');
+	        $arrKomoditas = array(); //terdiri dari nama dan harga
+			$komoditas = array(); //terdiri dari nama dan harga
+
+			foreach($harga_kemendag->find('div.sp2kpindexharga') as $element) {
+				$harga = array();
+				$nama = $element->find('div div.titleharga',0)->innertext;
+				array_push($harga, filter_var($element->find('div div.hargaskg',0)->innertext, FILTER_SANITIZE_NUMBER_INT));
+				array_push($harga, filter_var($element->find('div.sp2kpindexhargacontentkemarin',0)->innertext, FILTER_SANITIZE_NUMBER_INT));
+				array_push($harga, (boolean)((filter_var($element->find('div div.hargaskg',0)->innertext, FILTER_SANITIZE_NUMBER_INT))>(filter_var($element->find('div.sp2kpindexhargacontentkemarin',0)->innertext, FILTER_SANITIZE_NUMBER_INT))));
+
+				array_push($komoditas, $nama);
+				array_push($komoditas, $harga);
+				array_push($arrKomoditas, $komoditas); //ini masih salah loopingnyaaa.... pusingg
+	        }
+
+	        echo "<br><br><br>";
+				echo print_r($arrKomoditas); //ini dapat komoditas yang dari kemendag
+
+			for ($i = 0; $i < count($bahan); $i++) {
+				for ($j = 0; $j < count($arrKomoditas); $j++) {
+					if (strcmp($bahan[$i], $arrKomoditas[$j][0]) != 0) {
+						$nama = $bahan[$i];
+						$harga = $arrKomoditas[$j][1][0];
+						$kenaikan = ($arrKomoditas[$j][1][2] == 1);
+						$sumber = "kemendag";
+
+						$subArrayData = array();
+						array_push($subArrayData, $nama);
+						array_push($subArrayData, $harga);
+						array_push($subArrayData, $kenaikan);
+						array_push($subArrayData, $sumber);
+
+						array_push($arrayData, $subArrayData);
+					}
+
+				}
+			}
+
+			echo print_r($arrayData);
+
+
+
+	        //kalo ga ada cari di tokopedia
 		}
 	}
 ?>

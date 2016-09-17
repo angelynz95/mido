@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -109,6 +110,7 @@ public class FacebookPostsActivity extends AppCompatActivity {
             } while (response == null);
 
             JSONArray facebookPosts = (JSONArray) response.get("posts");
+            Log.d("Facebook Posts", facebookPosts.toString());
             for (int i = 0; i < facebookPosts.length(); i++) {
                 JSONObject facebookPost = (JSONObject) facebookPosts.get(i);
                 String facebookPostContent = facebookPost.getString("message");
@@ -118,8 +120,14 @@ public class FacebookPostsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.facebook_page_listview, facebookPostContents);
-        ListView facebookPageList = (ListView) findViewById(R.id.facebookPageList);
-        facebookPageList.setAdapter(adapter);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.facebook_post_listview, facebookPostContents);
+        ListView facebookPostList = (ListView) findViewById(R.id.facebookPostList);
+        facebookPostList.setAdapter(adapter);
+    }
+
+    public void showFacebookPagePostForm(View view) {
+        Intent facebookPostFormIntent = new Intent(this, FacebookPostFormActivity.class);
+        startActivity(facebookPostFormIntent);
+        finish();
     }
 }

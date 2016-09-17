@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -17,9 +15,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,12 +110,12 @@ public class FacebookPagesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String facebookPageName = (String) parent.getItemAtPosition(position);
-                showFacebookPagePostForm(facebookPageName);
+                showFacebookPosts(facebookPageName);
             }
         });
     }
 
-    public void showFacebookPagePostForm(String facebookPageName) {
+    public void showFacebookPosts(String facebookPageName) {
         String facebookPageId = sharedPreferences.getString(facebookPageName, null);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
