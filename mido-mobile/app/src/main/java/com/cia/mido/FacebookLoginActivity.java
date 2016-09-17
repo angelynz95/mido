@@ -13,6 +13,9 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class FacebookLoginActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
 
@@ -34,15 +37,25 @@ public class FacebookLoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent socialMediaIntent = new Intent(this, SocialMediaActivity.class);
+        startActivity(socialMediaIntent);
+        finish();
+    }
+
     private void customizeFacebookLoginButton() {
         LoginButton facebookLoginButton = (LoginButton) findViewById(R.id.facebookLoginButton);
         facebookLoginButton.setReadPermissions("email");
+        facebookLoginButton.clearPermissions();
+        facebookLoginButton.setPublishPermissions(Arrays.asList("manage_pages", "publish_pages"));
 
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Intent intent = new Intent(FacebookLoginActivity.this, FacebookPagesActivity.class);
                 startActivity(intent);
+                finish();
             }
 
             @Override
