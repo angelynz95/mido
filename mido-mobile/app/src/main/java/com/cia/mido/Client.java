@@ -38,15 +38,19 @@ public class Client extends AsyncTask<Void, Void, Void> {
         try {
             URL url = new URL(this.url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
+            if (method == "POST") {
+                conn.setDoOutput(true);
+            }
             conn.setDoInput(true);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestMethod(method);
 
-            OutputStream os = conn.getOutputStream();
-            os.write(request.toString().getBytes("UTF-8"));
-            os.close();
+            if (method == "POST" && request != null) {
+                OutputStream os = conn.getOutputStream();
+                os.write(request.toString().getBytes("UTF-8"));
+                os.close();
+            }
 
             InputStream in = new BufferedInputStream(conn.getInputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));

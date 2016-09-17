@@ -27,11 +27,21 @@ Route::post('/fb/{userId}/page/{pageId}/post', 'FacebookController@createPost');
 Route::get('/fb/{userId}/page/{pageId}', 'FacebookController@getPosts');
 // Route::get('/fb/{userId}/page/{pageId}/insight', 'FacebookController@getInsight');
 
+
+// BUKALAPAK
 Route::get('/bl/getPageInfo/{keyword}', 'BukalapakController@getPages');
 Route::get('/bl/postProduct/{productid}', 'BukalapakController@postProduct');
 
+// TOKOPEDIA
 Route::get('/tokped/getPageInfo/{keyword}', 'TokopediaController@getPages');
 Route::get('/tokped/postProduct/{productid}', 'TokopediaController@postProduct');
 
+// NEWS
+Route::get('/news/get', 'NewsController@getPages');
+
+// SRIBULANCER
+Route::post('/sl/get', 'SribulancerController@getPages');
+
+// DEMAND
 Route::get('/insight/getResep/{keyword}', 'DemandInsightController@getResep');
 Route::get('/insight/getInfoBahan/{keyword}', 'DemandInsightController@getInfoBahan');

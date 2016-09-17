@@ -134,7 +134,7 @@ class FacebookController extends Controller {
 		]);
 	}
 
-	public function getPages(int $userId, Request $req) {
+	public function getPages(int $userId) {
 		$key = $this->redis->getAccessTokenKey($userId, $this->const->FACEBOOK_API);
 		$accessToken = $this->redis->get($key);
 		$this->fb->setDefaultAccessToken($accessToken);
