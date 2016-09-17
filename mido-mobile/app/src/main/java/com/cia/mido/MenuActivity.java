@@ -14,7 +14,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void chooseSocialMedia(View view) {
-        Intent intent = new Intent(this, SocialMediaActivity.class);
-        startActivity(intent);
+        Intent socialMediaIntent = new Intent(this, SocialMediaActivity.class);
+        startActivity(socialMediaIntent);
     }
 }

@@ -3,14 +3,14 @@ package com.cia.mido;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
-public class SocialMediaActivity extends AppCompatActivity {
+public class FacebookPagesActivity extends AppCompatActivity {
     private AccessToken accessToken;
     private AccessTokenTracker accessTokenTracker;
     private CallbackManager callbackManager;
@@ -22,9 +22,10 @@ public class SocialMediaActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
-        setContentView(R.layout.activity_social_media);
+        setContentView(R.layout.activity_facebook_pages);
 
         getAccessToken();
+        showFacebookPages();
     }
 
     @Override
@@ -39,14 +40,10 @@ public class SocialMediaActivity extends AppCompatActivity {
         accessTokenTracker.stopTracking();
     }
 
-    public void accessFacebook(View view) {
-        Intent facebookIntent;
-        if (accessToken != null) {
-            facebookIntent = new Intent(this, FacebookPagesActivity.class);
-        } else {
-            facebookIntent = new Intent(this, FacebookLoginActivity.class);
-        }
-        startActivity(facebookIntent);
+    @Override
+    public void onBackPressed() {
+        Intent socialMediaIntent = new Intent(this, SocialMediaActivity.class);
+        startActivity(socialMediaIntent);
     }
 
     private void getAccessToken() {
@@ -57,5 +54,9 @@ public class SocialMediaActivity extends AppCompatActivity {
             }
         };
         accessToken = AccessToken.getCurrentAccessToken();
+    }
+
+    private void showFacebookPages() {
+        String[] facebookPages = {"Mido", "CodeForGirl", "Anmategra"};
     }
 }
