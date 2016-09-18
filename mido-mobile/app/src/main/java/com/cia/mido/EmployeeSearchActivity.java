@@ -114,6 +114,9 @@ public class EmployeeSearchActivity extends AppCompatActivity {
                 card.setTitle(bio);
                 card.addCardHeader(headerCard);
                 cards.add(card);
+
+                // Button
+//                Button moreButton =
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -76,13 +77,20 @@ public class MarketInsightActivity extends AppCompatActivity {
         String url = getResources().getString(R.string.backEndUrl);
         String imgUrl = "";
         if (marketplaceName.equals("Tokopedia")) {
-            url += getResources().getString(R.string.tokopediaGetInsightUrl) + "/" + keyword;
+            url += getResources().getString(R.string.tokopediaGetInsightUrl);
             imgUrl = "http://pro-rahasia.com/wp-content/uploads/2016/09/tokopedia.png";
         } else if (marketplaceName.equals("Bukalapak")) {
-            url += getResources().getString(R.string.bukalapakGetInsightUrl) + "/" + keyword;
+            url += getResources().getString(R.string.bukalapakGetInsightUrl);
             imgUrl = "https://s3-ap-southeast-1.amazonaws.com/yesboss-newsletter/BUKALAPAK/logo+bukalapak-01.png";
         }
-        Client client = new Client(url, null, "GET");
+
+        JSONObject request = new JSONObject();
+        try {
+            request.put("keyword", keyword);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Client client = new Client(url, request, "POST");
         client.execute();
 
         JSONObject response;
