@@ -53,6 +53,12 @@ public class MarketInsightActivity extends AppCompatActivity {
         finish();
     }
 
+    public void chooseEmployeeSearch(View view) {
+        Intent employeeSearchIntent = new Intent(this, EmployeeSearchActivity.class);
+        startActivity(employeeSearchIntent);
+        finish();
+    }
+
     public void showSearchResult(View view) {
         EditText keywordField = (EditText) findViewById(R.id.keyword);
         String keyword = keywordField.getText().toString();
@@ -98,7 +104,7 @@ public class MarketInsightActivity extends AppCompatActivity {
             // Card
             Card card = new Card(this);
             CardHeader headerCard = new CardHeader(this);
-            headerCard.setTitle("Bukalapak");
+            headerCard.setTitle(marketplaceName);
             card.setTitle(body);
             card.addCardHeader(headerCard);
 

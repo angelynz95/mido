@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +40,31 @@ public class EmployeeSearchActivity extends AppCompatActivity {
         finish();
     }
 
-    public void showSearchResult(View view) {
+    public void chooseSocialManager(View view) {
+        Intent socialMediaIntent = new Intent(this, SocialMediaActivity.class);
+        startActivity(socialMediaIntent);
+        finish();
+    }
+
+    public void chooseNews(View view) {
+        Intent newsIntent = new Intent(this, NewsActivity.class);
+        startActivity(newsIntent);
+        finish();
+    }
+
+    public void chooseMarketInsight(View view) {
+        Intent marketIntent = new Intent(this, MarketInsightActivity.class);
+        startActivity(marketIntent);
+        finish();
+    }
+
+    public void chooseEmployeeSearch(View view) {
+        Intent employeeSearchIntent = new Intent(this, EmployeeSearchActivity.class);
+        startActivity(employeeSearchIntent);
+        finish();
+    }
+
+    public void showSearchResultEmployee(View view) {
         EditText keywordField = (EditText) findViewById(R.id.keyword);
         String keyword = keywordField.getText().toString();
 
@@ -69,27 +94,27 @@ public class EmployeeSearchActivity extends AppCompatActivity {
                 response = client.getResponse();
             } while (response == null);
 
-            String name = response.getString("name");
-            String link = response.getString("link");
-            String job = response.getString("job");
-            String bio = response.getString("bio");
+            JSONArray employees = response.getJSONArray("employee");
+            for (int i = 0; i < employees.length(); i++) {
+                JSONObject employee = (JSONObject) employees.get(i);
+                String name = employee.getString("name");
+                String link = employee.getString("link");
+                String job = employee.getString("job");
+                String bio = employee.getString("bio");
 
-            // Body
-            String body = "Nama: " + name + "\nPranala: Rp"
-                    + link + ",00\nPekerjaan: Rp" + job
-                    + "\nBiografi: " + bio + "\n";
+                // Body
+                String body = "Nama: " + name + "\nPranala: Rp"
+                        + link + ",00\nPekerjaan: Rp" + job
+                        + "\nBiografi: " + bio + "\n";
 
-            // Card
-            Card card = new Card(this);
-            CardHeader headerCard = new CardHeader(this);
-            headerCard.setTitle(name);
-            card.setTitle(body);
-            card.addCardHeader(headerCard);
-
-            // Thumbnail
-            CardThumbnail thumbnailCard = new CardThumbnail(this);
-            card.addCardThumbnail(thumbnailCard);
-            cards.add(card);
+                // Card
+                Card card = new Card(this);
+                CardHeader headerCard = new CardHeader(this);
+                headerCard.setTitle(name + "\nsebagai " + job);
+                card.setTitle(bio);
+                card.addCardHeader(headerCard);
+                cards.add(card);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

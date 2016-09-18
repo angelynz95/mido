@@ -18,14 +18,17 @@ class SribulancerController extends Controller {
 			$link = $nameLink->href;
 
 			$name = $nameLink->find('h4.real-name', 0);
-			$name = str_replace($name->find('small.ml-5', 0), '', $name->innertext);
+			// $name = str_replace($name->find('small.ml-5', 0), '', $name->innertext);
+			$name = strip_tags($name);
 
 			$job = $user->find('.applicant-title', 0);
-			$job = str_replace($job->find('i.fa-hand-o-up', 0), '', $job->innertext);
+			$job = strip_tags($job);
+			// $job = str_replace($job->find('i.fa-hand-o-up', 0)->innertext, '', $job->innertext);
 
 			$bio = $user->find('.applicant-bio', 0)->innertext;
-			$bio = str_replace('<span class="highlight-search">', '', $bio);
-			$bio = str_replace('</span>', '', $bio);
+			$bio = strip_tags($bio);
+			// $bio = str_replace('<span class="highlight-search">', '', $bio);
+			// $bio = str_replace('</span>', '', $bio);
 
 			$freelancerInfo = [
 				'name' => $name,

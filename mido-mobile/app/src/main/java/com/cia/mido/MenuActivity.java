@@ -41,6 +41,5 @@ public class MenuActivity extends AppCompatActivity {
         Intent employeeSearchIntent = new Intent(this, EmployeeSearchActivity.class);
         startActivity(employeeSearchIntent);
         finish();
-
     }
 }

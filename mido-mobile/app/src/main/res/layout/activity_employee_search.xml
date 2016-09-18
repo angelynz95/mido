@@ -11,6 +11,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cia.mido.EmployeeSearchActivity">
 
+    <!-- Menu -->
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/socialManagerButton"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:onClick="chooseSocialManager"
+            android:text="@string/socialManagerButton"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/newsButton"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:onClick="chooseNews"
+            android:text="@string/newsButton"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/marketInsightButton"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:onClick="chooseMarketInsight"
+            android:text="@string/marketInsightButton"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/employeeSearchButton"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:onClick="chooseEmployeeSearch"
+            android:text="@string/employeeSearchButton"
+            android:textAlignment="center" />
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,48 +62,33 @@
 
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:orientation="horizontal">
-
 
         <EditText
             android:id="@+id/keyword"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            />
+            android:hint="Bidang pekerjaan"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/searchJobButton"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:layout_width="match_parent"
-            android:text="@string/searchButton"
-            android:onClick="showSearchResult"
-            android:textAlignment="center" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/searchJobLayout"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/searchEmployeeResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hasilSearchEmployee"
-            />
-
-
-        <Button
-            android:id="@+id/lihatButton"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="@string/lihatButton"
-            android:gravity="right" />
+            android:layout_height="wrap_content"
+            android:onClick="showSearchResultEmployee"
+            android:text="@string/searchButton"
+            android:textAlignment="center" />
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/searchEmployeeResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hasilSearchEmployee"
+        />
 
     <it.gmariotti.cardslib.library.view.CardListView
         android:id="@+id/employee_search"
@@ -68,6 +96,5 @@
         android:layout_height="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card="http://schemas.android.com/apk/res-auto"/>
-
 
 </LinearLayout>

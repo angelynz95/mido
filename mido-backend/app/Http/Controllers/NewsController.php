@@ -19,11 +19,11 @@ class NewsController extends Controller {
 			$readMore = $news->find('a[title="' . $title . '"]', 0)->href;
 			
 			$news = [
-				'image_url' => $imageUrl,
-				'time' => $time,
-				'title' => $title,
-				'header' => $header,
-				'read_more' => $readMore,
+				'image_url' => strip_tags($imageUrl),
+				'time' => strip_tags($time),
+				'title' => strip_tags($title),
+				'header' => strip_tags($header),
+				'read_more' => 'http://www.depkop.go.id/' . strip_tags($readMore),
 			];
 			array_push($newsList, $news);
 		}

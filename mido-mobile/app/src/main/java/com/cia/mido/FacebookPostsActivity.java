@@ -93,7 +93,9 @@ public class FacebookPostsActivity extends AppCompatActivity {
     }
 
     public void chooseEmployeeSearch(View view) {
-
+        Intent employeeSearchIntent = new Intent(this, EmployeeSearchActivity.class);
+        startActivity(employeeSearchIntent);
+        finish();
     }
 
     private void showFacebookPosts() {

@@ -34,6 +34,7 @@
         <activity android:name=".FacebookPostsActivity" />
         <activity android:name=".NewsActivity" />
         <activity android:name=".MarketInsightActivity"></activity>
+        <activity android:name=".EmployeeSearchActivity"></activity>
     </application>
 
 </manifest>
