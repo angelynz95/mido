@@ -18,4 +18,8 @@
     <string name="postButton">Post</string>
     <string name="socialManagerButton">Social Manager</string>
     <string name="searchButton">Cari</string>
+    <string name="lihatButton">Lihat</string>
+    <string name="searchEmployeeUrl">/sl/get</string>
+    <string name="hasilSearchEmployee"></string>
+    <string name="bidangKerja"></string>
 </resources>
