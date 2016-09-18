@@ -47,7 +47,9 @@ public class SocialMediaActivity extends AppCompatActivity {
     }
 
     public void chooseNews(View view) {
-
+        Intent newsIntent = new Intent(this, NewsActivity.class);
+        startActivity(newsIntent);
+        finish();
     }
 
     public void chooseMarketInsight(View view) {

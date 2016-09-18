@@ -97,12 +97,33 @@ class InstagramController extends Controller {
 		$usernameId = $this->redis->get($key);
 		$this->login($usernameId);
 
-		$result = $this->ig->getUserFeed($usernameId, null, 1);
-		dd($result->getItems());
+		// $result = $this->ig->getUserFeed($usernameId, null, 1);
+		// $dom = new DOMDocument();
+	    // $dom->loadHTML($html);
+	    // return element_to_obj($dom->documentElement);
+	 //    $res = [];
+		// $res = array_merge($res, $result->getItems());
+		// dd($res);
 		// foreach($result->getItems() as $image) {
 		// 	dd($image['id']);
 		// 	dd($result->getImageVersion2());
 		// }
+
+		try {
+		    $helper = null;
+		    $followers = [];
+		    $helper = $this->ig->getSelfUserFeed();
+
+		    $followers = array_merge($followers, $helper->getItems());
+		    // } while(!is_null($helper->getNextMaxId()));
+		    echo "My followers: \n";
+		    foreach ($followers as $follower) {
+		    	dd($follower->getImageVersions());
+		        // echo '- '. $follower . "\n";
+		    }
+		} catch (Exception $e) {
+		  echo $e->getMessage();
+		}
 	}
 
 	public function uploadPhoto(int $userId, Request $req) {

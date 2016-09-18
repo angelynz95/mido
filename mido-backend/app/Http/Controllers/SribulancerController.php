@@ -36,6 +36,8 @@ class SribulancerController extends Controller {
 			array_push($freelancerInfos, $freelancerInfo);
 		}
 		
-		return response()->json($freelancerInfos);
+		return response()->json([
+			'employee' => $freelancerInfos
+		]);
 	}
 }
