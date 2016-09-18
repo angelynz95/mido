@@ -15,38 +15,49 @@
         android:layout_width="match_parent"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/socialManagerButton"
-            android:layout_height="match_parent"
+            android:src="@mipmap/social_manager"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
             android:layout_width="match_parent"
+            android:background="@android:color/transparent"
             android:onClick="chooseSocialManager"
-            android:text="@string/socialManagerButton"
             android:textAlignment="center" />
 
-        <Button
+        <ImageButton
             android:id="@+id/newsButton"
-            android:layout_height="match_parent"
+            android:src="@mipmap/news"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
             android:layout_width="match_parent"
+            android:background="@android:color/transparent"
             android:onClick="chooseNews"
             android:text="@string/newsButton"
             android:textAlignment="center" />
 
-        <Button
+        <ImageButton
             android:id="@+id/marketInsightButton"
-            android:layout_height="match_parent"
+            android:src="@mipmap/market_insight"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
             android:layout_width="match_parent"
+            android:background="@android:color/transparent"
             android:onClick="chooseMarketInsight"
             android:text="@string/marketInsightButton"
             android:textAlignment="center" />
 
-        <Button
+        <ImageButton
             android:id="@+id/employeeSearchButton"
-            android:layout_height="match_parent"
+            android:src="@mipmap/employee_search"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
             android:layout_weight="1"
             android:layout_width="match_parent"
+            android:background="@android:color/transparent"
             android:onClick="chooseEmployeeSearch"
             android:text="@string/employeeSearchButton"
             android:textAlignment="center" />
