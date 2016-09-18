@@ -18,8 +18,8 @@
           $number_of_page = $element->innertext;
         }
 
-        if ($number_of_page > 20) {
-          $number_of_page = 20;
+        if ($number_of_page > 5) {
+          $number_of_page = 5;
         }
         
         $total_price = 0;
@@ -44,14 +44,14 @@
           $html = $this->Htmldom->file_get_html('https://www.bukalapak.com/products?utf8=%E2%9C%93&source=navbar&from=omnisearch&page='.$page_number.'&search_source=omnisearch_organic&search%5Bkeywords%5D=' . urlencode($keyword));
         } while ($page_number < $number_of_page);
         
-        $arrayData = array(
+        $arrayData = [
           'banyak_produk' => $total_product, 
           'harga_tertinggi' => $max, 
           'harga_terendah' => $min, 
           'harga_rata' => $total_price/$total_product
-          );
+          ];
 
-        return json_encode($arrayData);
+        return response()->json($arrayData);
     }
 
     // public function postProduct(int $product_id) {

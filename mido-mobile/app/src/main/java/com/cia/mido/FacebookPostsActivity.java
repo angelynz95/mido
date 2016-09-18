@@ -81,11 +81,15 @@ public class FacebookPostsActivity extends AppCompatActivity {
     }
 
     public void chooseNews(View view) {
-
+        Intent newsIntent = new Intent(this, NewsActivity.class);
+        startActivity(newsIntent);
+        finish();
     }
 
     public void chooseMarketInsight(View view) {
-
+        Intent marketIntent = new Intent(this, MarketInsightActivity.class);
+        startActivity(marketIntent);
+        finish();
     }
 
     public void chooseEmployeeSearch(View view) {
