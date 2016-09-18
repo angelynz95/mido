@@ -32,7 +32,8 @@
         <activity android:name=".FacebookPagesActivity" />
         <activity android:name=".FacebookPostFormActivity" />
         <activity android:name=".FacebookPostsActivity" />
-        <activity android:name=".NewsActivity"></activity>
+        <activity android:name=".NewsActivity" />
+        <activity android:name=".MarketInsightActivity"></activity>
     </application>
 
 </manifest>

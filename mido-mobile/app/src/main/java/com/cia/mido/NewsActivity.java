@@ -1,30 +1,23 @@
 package com.cia.mido;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardListView;
-import it.gmariotti.cardslib.library.view.CardView;
 
 public class NewsActivity extends AppCompatActivity {
-    private ArrayList<Card> cards = new ArrayList<Card>()
-            ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +45,9 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     public void chooseMarketInsight(View view) {
-
+        Intent marketIntent = new Intent(this, MarketInsightActivity.class);
+        startActivity(marketIntent);
+        finish();
     }
 
     public void chooseEmployeeSearch(View view) {
@@ -65,7 +60,7 @@ public class NewsActivity extends AppCompatActivity {
         client.execute();
 
         JSONObject response;
-        List<String> newsList = new ArrayList<>();
+        ArrayList<Card> cards = new ArrayList<Card>();
         try {
             do {
                 Thread.sleep(1000);
@@ -81,6 +76,7 @@ public class NewsActivity extends AppCompatActivity {
                 String header = news.getString("header");
                 String readMore = news.getString("read_more");
 
+                // Card
                 Card card = new Card(this);
                 CardHeader headerCard = new CardHeader(this);
                 headerCard.setTitle(title);
@@ -90,8 +86,12 @@ public class NewsActivity extends AppCompatActivity {
                 // Thumbnail
                 CardThumbnail thumbnailCard = new CardThumbnail(this);
                 thumbnailCard.setUrlResource(imageUrl);
-//                thumbnailCard.setDrawableResource(getResources(R.mipmap.ic_launcher));
                 card.addCardThumbnail(thumbnailCard);
+
+                // Expand
+                CardExpand expandCard = new CardExpand(this);
+                expandCard.setTitle(time);
+                card.addCardExpand(expandCard);
                 cards.add(card);
             }
         } catch (Exception e) {

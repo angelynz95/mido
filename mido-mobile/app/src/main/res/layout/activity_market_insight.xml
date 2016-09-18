@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_weight="2"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.cia.mido.NewsActivity">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/socialManagerButton"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:onClick="chooseSocialManager"
+            android:text="@string/socialManagerButton"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/newsButton"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:onClick="chooseNews"
+            android:text="@string/newsButton"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/marketInsightButton"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:onClick="chooseMarketInsight"
+            android:text="@string/marketInsightButton"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/employeeSearchButton"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:onClick="chooseEmployeeSearch"
+            android:text="@string/employeeSearchButton"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/keyword"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Produk Anda"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showSearchResult"
+            android:text="@string/searchButton"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <it.gmariotti.cardslib.library.view.CardListView
+        android:id="@+id/market_insight_cards"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card="http://schemas.android.com/apk/res-auto"/>
+
+</LinearLayout>

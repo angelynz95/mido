@@ -41,14 +41,14 @@
 
           } while (($page_number < 20)&&!($is_last_page));
 
-        $arrayData = array(
+        $arrayData = [
             'banyak_produk' => $number_of_product, 
             'harga_tertinggi' => $max, 
             'harga_terendah' => $min, 
             'harga_rata' => $total_price/$number_of_product
-        );
+        ];
 
-        return json_encode($arrayData);
+        return response()->json($arrayData);
 
     }
   }
