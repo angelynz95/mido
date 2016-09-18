@@ -33,11 +33,11 @@ Route::get('/ig/{userId}/post/get', 'InstagramController@getPosts');
 Route::post('/ig/{userId}/post/image', 'InstagramController@uploadPhoto');
 
 // BUKALAPAK
-Route::get('/bl/getPageInfo/{keyword}', 'BukalapakController@getPages');
+Route::post('/bl/getPageInfo/', 'BukalapakController@getPages');
 Route::get('/bl/postProduct/{productid}', 'BukalapakController@postProduct');
 
 // TOKOPEDIA
-Route::get('/tokped/getPageInfo/{keyword}', 'TokopediaController@getPages');
+Route::post('/tokped/getPageInfo/', 'TokopediaController@getPages');
 Route::get('/tokped/postProduct/{productid}', 'TokopediaController@postProduct');
 
 // NEWS

@@ -7,7 +7,8 @@
     
 
     class BukalapakController extends Controller {
-      public function getPages(string $keyword) {
+      public function getPages(Request $req) {
+      	$keyword = $req->get('keyword');
         $this->Htmldom = new Htmldom();
 
         // Create DOM from URL or file

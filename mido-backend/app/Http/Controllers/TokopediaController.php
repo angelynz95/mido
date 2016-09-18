@@ -7,7 +7,8 @@
     
 
     class TokopediaController extends Controller {
-      public function getPages(string $keyword) {
+      public function getPages(Request $req) {
+        $keyword = $req->get('keyword');
         $number_of_product = 0;
         $total_price = 0;
         $max = 0;
