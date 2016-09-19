@@ -119,8 +119,13 @@ public class FacebookPostsActivity extends AppCompatActivity {
             Log.d("Facebook Posts", facebookPosts.toString());
             for (int i = 0; i < facebookPosts.length(); i++) {
                 JSONObject facebookPost = (JSONObject) facebookPosts.get(i);
-                String facebookPostContent = facebookPost.getString("message");
-                facebookPostContents.add(facebookPostContent);
+                if (facebookPost.has("story")) {
+                    String facebookPostContent = facebookPost.getString("story");
+                    facebookPostContents.add(facebookPostContent);
+                } else if (facebookPost.has("message")) {
+                    String facebookPostContent = facebookPost.getString("message");
+                    facebookPostContents.add(facebookPostContent);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

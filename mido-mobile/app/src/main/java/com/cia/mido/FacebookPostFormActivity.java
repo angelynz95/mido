@@ -38,8 +38,8 @@ public class FacebookPostFormActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent facebookPagesIntent = new Intent(this, FacebookPagesActivity.class);
-        startActivity(facebookPagesIntent);
+        Intent facebookPostsIntent = new Intent(this, FacebookPostsActivity.class);
+        startActivity(facebookPostsIntent);
         finish();
     }
 
@@ -78,6 +78,10 @@ public class FacebookPostFormActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Intent facebookPostsIntent = new Intent(this, FacebookPostsActivity.class);
+        startActivity(facebookPostsIntent);
+        finish();
     }
 
     private void getAccessToken() {

@@ -20,9 +20,9 @@ class FacebookController extends Controller {
 		$this->db = new DatabaseController();
 		$dataHelper = new PersistentDataHandler();
 		$config = [
-			'app_id' => env('FB_APP_ID'),
-			'app_secret' => env('FB_APP_SECRET'),
-			'default_graph_version' => env('FB_DEFAULT_GRAPH_VERSION'),
+			'app_id' => '197603340658783',
+			'app_secret' => '137c77f8f885620a1b3377612901d569',
+			'default_graph_version' => 'v2.7',
 			'persistent_data_handler' => $dataHelper,
 		];
 		$this->fb = new Facebook\Facebook($config);
@@ -116,7 +116,10 @@ class FacebookController extends Controller {
 		Log::info('Logged in as ' . $userNode->getName() . $userNode->getEmail());
 
 		$name = $userNode->getName();
-		$email = $userNode->getEmail();
+		$email = '';
+		if (isset($email)) {
+			$email = $userNode->getEmail();
+		}
 		$data = [
 			'full_name' => $name, 
 			'email' => $email, 
